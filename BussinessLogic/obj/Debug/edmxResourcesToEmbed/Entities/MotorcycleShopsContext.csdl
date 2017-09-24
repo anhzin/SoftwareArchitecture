@@ -1,0 +1,545 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MotorcycleShopsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeID" Type="Int64" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Account_Employee" FromRole="Account" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Bike">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EngineNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChassisNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Capacity" Type="Int32" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PlateNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StoreID" Type="Int64" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="CustomerID" Type="Int64" />
+    <Property Name="WarrantyPeriod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Bike_Customer" FromRole="Bike" ToRole="Customer" />
+    <NavigationProperty Name="Store" Relationship="Self.FK_Bike_Store" FromRole="Bike" ToRole="Store" />
+    <NavigationProperty Name="MaintenanceBills" Relationship="Self.FK_MaintenanceBill_Bike" FromRole="Bike" ToRole="MaintenanceBill" />
+    <NavigationProperty Name="SaleReceipts" Relationship="Self.FK_SaleReceipt_Bike" FromRole="Bike" ToRole="SaleReceipt" />
+  </EntityType>
+  <EntityType Name="BillDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuotationID" Type="Int64" />
+    <Property Name="BillID" Type="Int64" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BillEmployees" Relationship="Self.FK_BillEmployee_BillDetails" FromRole="BillDetails" ToRole="BillEmployee" />
+    <NavigationProperty Name="MaintenanceBill" Relationship="Self.FK_ProductsAndServices_MaintenanceBill" FromRole="BillDetails" ToRole="MaintenanceBill" />
+    <NavigationProperty Name="QuotationTable" Relationship="Self.FK_ProductsAndServices_QuotationTable" FromRole="BillDetails" ToRole="QuotationTable" />
+  </EntityType>
+  <EntityType Name="BillEmployee">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="Int64" />
+    <Property Name="BillDetailID" Type="Int64" />
+    <NavigationProperty Name="BillDetail" Relationship="Self.FK_BillEmployee_BillDetails" FromRole="BillEmployee" ToRole="BillDetails" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_BillEmployee_Employee" FromRole="BillEmployee" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bikes" Relationship="Self.FK_Bike_Customer" FromRole="Customer" ToRole="Bike" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StoreID" Type="Int64" />
+    <Property Name="JoinedDate" Type="DateTime" Precision="3" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Employee" FromRole="Employee" ToRole="Account" />
+    <NavigationProperty Name="BillEmployees" Relationship="Self.FK_BillEmployee_Employee" FromRole="Employee" ToRole="BillEmployee" />
+    <NavigationProperty Name="Store" Relationship="Self.FK_Employee_Store" FromRole="Employee" ToRole="Store" />
+    <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK_EmployeeRole_Employee" FromRole="Employee" ToRole="EmployeeRole" />
+    <NavigationProperty Name="MaintenanceBills" Relationship="Self.FK_MaintenanceBill_Employee" FromRole="Employee" ToRole="MaintenanceBill" />
+    <NavigationProperty Name="SaleReceipts" Relationship="Self.FK_SaleReceipt_Employee" FromRole="Employee" ToRole="SaleReceipt" />
+  </EntityType>
+  <EntityType Name="EmployeeRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="Int64" />
+    <Property Name="RoleID" Type="Int64" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeRole_Employee" FromRole="EmployeeRole" ToRole="Employee" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_EmployeeRole_Role" FromRole="EmployeeRole" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="MaintenanceBill">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BikeID" Type="Int64" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="CashierID" Type="Int64" />
+    <Property Name="StoreID" Type="Int64" />
+    <Property Name="CustomerPayment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bike" Relationship="Self.FK_MaintenanceBill_Bike" FromRole="MaintenanceBill" ToRole="Bike" />
+    <NavigationProperty Name="BillDetails" Relationship="Self.FK_ProductsAndServices_MaintenanceBill" FromRole="MaintenanceBill" ToRole="BillDetails" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_MaintenanceBill_Employee" FromRole="MaintenanceBill" ToRole="Employee" />
+    <NavigationProperty Name="Store" Relationship="Self.FK_MaintenanceBill_Store" FromRole="MaintenanceBill" ToRole="Store" />
+  </EntityType>
+  <EntityType Name="QuotationTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductOrService" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="WarrantyPeriod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Brand" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="IsProduct" Type="Boolean" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BillDetails" Relationship="Self.FK_ProductsAndServices_QuotationTable" FromRole="QuotationTable" ToRole="BillDetails" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK_EmployeeRole_Role" FromRole="Role" ToRole="EmployeeRole" />
+  </EntityType>
+  <EntityType Name="SaleReceipt">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CashierID" Type="Int64" />
+    <Property Name="SoldDate" Type="DateTime" Precision="3" />
+    <Property Name="StoreID" Type="Int64" />
+    <Property Name="BikeID" Type="Int64" />
+    <NavigationProperty Name="Bike" Relationship="Self.FK_SaleReceipt_Bike" FromRole="SaleReceipt" ToRole="Bike" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_SaleReceipt_Employee" FromRole="SaleReceipt" ToRole="Employee" />
+    <NavigationProperty Name="Store" Relationship="Self.FK_SaleReceipt_Store" FromRole="SaleReceipt" ToRole="Store" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bikes" Relationship="Self.FK_Bike_Store" FromRole="Store" ToRole="Bike" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Store" FromRole="Store" ToRole="Employee" />
+    <NavigationProperty Name="MaintenanceBills" Relationship="Self.FK_MaintenanceBill_Store" FromRole="Store" ToRole="MaintenanceBill" />
+    <NavigationProperty Name="SaleReceipts" Relationship="Self.FK_SaleReceipt_Store" FromRole="Store" ToRole="SaleReceipt" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Account_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bike_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Bike" Type="Self.Bike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Bike">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bike_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="Bike" Type="Self.Bike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Bike">
+        <PropertyRef Name="StoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaintenanceBill_Bike">
+    <End Role="Bike" Type="Self.Bike" Multiplicity="0..1" />
+    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bike">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MaintenanceBill">
+        <PropertyRef Name="BikeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SaleReceipt_Bike">
+    <End Role="Bike" Type="Self.Bike" Multiplicity="0..1" />
+    <End Role="SaleReceipt" Type="Self.SaleReceipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bike">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SaleReceipt">
+        <PropertyRef Name="BikeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillEmployee_BillDetails">
+    <End Role="BillDetails" Type="Self.BillDetail" Multiplicity="0..1" />
+    <End Role="BillEmployee" Type="Self.BillEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BillDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BillEmployee">
+        <PropertyRef Name="BillDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsAndServices_MaintenanceBill">
+    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="0..1" />
+    <End Role="BillDetails" Type="Self.BillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MaintenanceBill">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BillDetails">
+        <PropertyRef Name="BillID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsAndServices_QuotationTable">
+    <End Role="QuotationTable" Type="Self.QuotationTable" Multiplicity="0..1" />
+    <End Role="BillDetails" Type="Self.BillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuotationTable">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BillDetails">
+        <PropertyRef Name="QuotationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillEmployee_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="BillEmployee" Type="Self.BillEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BillEmployee">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="StoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeRole_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmployeeRole">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaintenanceBill_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MaintenanceBill">
+        <PropertyRef Name="CashierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SaleReceipt_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="SaleReceipt" Type="Self.SaleReceipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SaleReceipt">
+        <PropertyRef Name="CashierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmployeeRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaintenanceBill_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MaintenanceBill">
+        <PropertyRef Name="StoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SaleReceipt_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="SaleReceipt" Type="Self.SaleReceipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SaleReceipt">
+        <PropertyRef Name="StoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MotorcycleShopsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Bikes" EntityType="Self.Bike" />
+    <EntitySet Name="BillDetails" EntityType="Self.BillDetail" />
+    <EntitySet Name="BillEmployees" EntityType="Self.BillEmployee" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="EmployeeRoles" EntityType="Self.EmployeeRole" />
+    <EntitySet Name="MaintenanceBills" EntityType="Self.MaintenanceBill" />
+    <EntitySet Name="QuotationTables" EntityType="Self.QuotationTable" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="SaleReceipts" EntityType="Self.SaleReceipt" />
+    <EntitySet Name="Stores" EntityType="Self.Store" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bike_Customer" Association="Self.FK_Bike_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Bike" EntitySet="Bikes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bike_Store" Association="Self.FK_Bike_Store">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="Bike" EntitySet="Bikes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaintenanceBill_Bike" Association="Self.FK_MaintenanceBill_Bike">
+      <End Role="Bike" EntitySet="Bikes" />
+      <End Role="MaintenanceBill" EntitySet="MaintenanceBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SaleReceipt_Bike" Association="Self.FK_SaleReceipt_Bike">
+      <End Role="Bike" EntitySet="Bikes" />
+      <End Role="SaleReceipt" EntitySet="SaleReceipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillEmployee_BillDetails" Association="Self.FK_BillEmployee_BillDetails">
+      <End Role="BillDetails" EntitySet="BillDetails" />
+      <End Role="BillEmployee" EntitySet="BillEmployees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsAndServices_MaintenanceBill" Association="Self.FK_ProductsAndServices_MaintenanceBill">
+      <End Role="MaintenanceBill" EntitySet="MaintenanceBills" />
+      <End Role="BillDetails" EntitySet="BillDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsAndServices_QuotationTable" Association="Self.FK_ProductsAndServices_QuotationTable">
+      <End Role="QuotationTable" EntitySet="QuotationTables" />
+      <End Role="BillDetails" EntitySet="BillDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillEmployee_Employee" Association="Self.FK_BillEmployee_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="BillEmployee" EntitySet="BillEmployees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Store" Association="Self.FK_Employee_Store">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeRole_Employee" Association="Self.FK_EmployeeRole_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaintenanceBill_Employee" Association="Self.FK_MaintenanceBill_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="MaintenanceBill" EntitySet="MaintenanceBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SaleReceipt_Employee" Association="Self.FK_SaleReceipt_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="SaleReceipt" EntitySet="SaleReceipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeRole_Role" Association="Self.FK_EmployeeRole_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaintenanceBill_Store" Association="Self.FK_MaintenanceBill_Store">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="MaintenanceBill" EntitySet="MaintenanceBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SaleReceipt_Store" Association="Self.FK_SaleReceipt_Store">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="SaleReceipt" EntitySet="SaleReceipts" />
+    </AssociationSet>
+    <FunctionImport Name="INSERT_BIKE">
+      <Parameter Name="EngineNumber" Mode="In" Type="String" />
+      <Parameter Name="ChassisNumber" Mode="In" Type="String" />
+      <Parameter Name="Brand" Mode="In" Type="String" />
+      <Parameter Name="ModelCode" Mode="In" Type="String" />
+      <Parameter Name="Capacity" Mode="In" Type="Int32" />
+      <Parameter Name="Color" Mode="In" Type="String" />
+      <Parameter Name="PlateNumber" Mode="In" Type="String" />
+      <Parameter Name="StoreID" Mode="In" Type="Int64" />
+      <Parameter Name="Price" Mode="In" Type="Double" />
+      <Parameter Name="CustomerID" Mode="In" Type="Int64" />
+      <Parameter Name="WarrantyPeriod" Mode="In" Type="String" />
+      <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+      <Parameter Name="Error" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="INSERT_CUSTOMER">
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="DOB" Mode="In" Type="DateTime" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+      <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="CurrentIdentity" Mode="InOut" Type="Int64" />
+      <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="INSERT_SALE_RECEIPT">
+      <Parameter Name="CashierID" Mode="In" Type="Int64" />
+      <Parameter Name="SoldDate" Mode="In" Type="DateTime" />
+      <Parameter Name="StoreID" Mode="In" Type="Int64" />
+      <Parameter Name="BikeID" Mode="In" Type="Int64" />
+      <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+      <Parameter Name="Error" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="NEW_SALE_TRANSACTION">
+      <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="EngineNumber" Mode="In" Type="String" />
+      <Parameter Name="ChassisNumber" Mode="In" Type="String" />
+      <Parameter Name="CashierID" Mode="In" Type="Int64" />
+      <Parameter Name="SoldDate" Mode="In" Type="DateTime" />
+      <Parameter Name="StoreID" Mode="In" Type="Int64" />
+      <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+      <Parameter Name="Error" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MotorcycleShopsModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MotorcycleShopsModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="UPDATE_BIKE">
+      <Parameter Name="EngineNumber" Mode="In" Type="String" />
+      <Parameter Name="ChassisNumber" Mode="In" Type="String" />
+      <Parameter Name="Brand" Mode="In" Type="String" />
+      <Parameter Name="ModelCode" Mode="In" Type="String" />
+      <Parameter Name="Capacity" Mode="In" Type="Int32" />
+      <Parameter Name="Color" Mode="In" Type="String" />
+      <Parameter Name="PlateNumber" Mode="In" Type="String" />
+      <Parameter Name="StoreID" Mode="In" Type="Int64" />
+      <Parameter Name="Price" Mode="In" Type="Double" />
+      <Parameter Name="CustomerID" Mode="In" Type="Int64" />
+      <Parameter Name="WarrantyPeriod" Mode="In" Type="String" />
+      <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="UPDATE_CUSTOMER_INFORMATION">
+      <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="DOB" Mode="In" Type="DateTime" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
