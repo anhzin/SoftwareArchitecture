@@ -90,7 +90,7 @@ namespace BussinessLogic.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_BIKE", engineNumberParameter, chassisNumberParameter, brandParameter, modelCodeParameter, capacityParameter, colorParameter, plateNumberParameter, storeIDParameter, priceParameter, customerIDParameter, warrantyPeriodParameter, success, error);
         }
     
-        public virtual int INSERT_CUSTOMER(string name, Nullable<System.DateTime> dOB, string address, string phoneNumber, string email, ObjectParameter currentIdentity, ObjectParameter success)
+        public virtual int INSERT_CUSTOMER(string name, Nullable<System.DateTime> dOB, string address, string phoneNumber, string email, ObjectParameter currentIdentity, ObjectParameter success, ObjectParameter error)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
@@ -112,10 +112,31 @@ namespace BussinessLogic.Entities
                 new ObjectParameter("Email", email) :
                 new ObjectParameter("Email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_CUSTOMER", nameParameter, dOBParameter, addressParameter, phoneNumberParameter, emailParameter, currentIdentity, success);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_CUSTOMER", nameParameter, dOBParameter, addressParameter, phoneNumberParameter, emailParameter, currentIdentity, success, error);
         }
     
-        public virtual int INSERT_SALE_RECEIPT(Nullable<long> cashierID, Nullable<System.DateTime> soldDate, Nullable<long> storeID, Nullable<long> bikeID, ObjectParameter success, ObjectParameter error)
+        public virtual int INSERT_MAINTENANCE_BILL(string engineNumber, string chassisNumber, Nullable<long> cashierID, string customerPayment, ObjectParameter currentIdentity, ObjectParameter success, ObjectParameter error)
+        {
+            var engineNumberParameter = engineNumber != null ?
+                new ObjectParameter("EngineNumber", engineNumber) :
+                new ObjectParameter("EngineNumber", typeof(string));
+    
+            var chassisNumberParameter = chassisNumber != null ?
+                new ObjectParameter("ChassisNumber", chassisNumber) :
+                new ObjectParameter("ChassisNumber", typeof(string));
+    
+            var cashierIDParameter = cashierID.HasValue ?
+                new ObjectParameter("CashierID", cashierID) :
+                new ObjectParameter("CashierID", typeof(long));
+    
+            var customerPaymentParameter = customerPayment != null ?
+                new ObjectParameter("CustomerPayment", customerPayment) :
+                new ObjectParameter("CustomerPayment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_MAINTENANCE_BILL", engineNumberParameter, chassisNumberParameter, cashierIDParameter, customerPaymentParameter, currentIdentity, success, error);
+        }
+    
+        public virtual int INSERT_SALE_RECEIPT(Nullable<long> cashierID, Nullable<System.DateTime> soldDate, Nullable<long> bikeID, Nullable<long> storeID, ObjectParameter success, ObjectParameter error)
         {
             var cashierIDParameter = cashierID.HasValue ?
                 new ObjectParameter("CashierID", cashierID) :
@@ -125,15 +146,15 @@ namespace BussinessLogic.Entities
                 new ObjectParameter("SoldDate", soldDate) :
                 new ObjectParameter("SoldDate", typeof(System.DateTime));
     
-            var storeIDParameter = storeID.HasValue ?
-                new ObjectParameter("StoreID", storeID) :
-                new ObjectParameter("StoreID", typeof(long));
-    
             var bikeIDParameter = bikeID.HasValue ?
                 new ObjectParameter("BikeID", bikeID) :
                 new ObjectParameter("BikeID", typeof(long));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_SALE_RECEIPT", cashierIDParameter, soldDateParameter, storeIDParameter, bikeIDParameter, success, error);
+            var storeIDParameter = storeID.HasValue ?
+                new ObjectParameter("StoreID", storeID) :
+                new ObjectParameter("StoreID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_SALE_RECEIPT", cashierIDParameter, soldDateParameter, bikeIDParameter, storeIDParameter, success, error);
         }
     
         public virtual int NEW_SALE_TRANSACTION(string phoneNumber, string engineNumber, string chassisNumber, Nullable<long> cashierID, Nullable<System.DateTime> soldDate, Nullable<long> storeID, ObjectParameter success, ObjectParameter error)

@@ -24,8 +24,8 @@ namespace BussinessLogic.Entities
         public Nullable<long> BikeID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<long> CashierID { get; set; }
-        public Nullable<long> StoreID { get; set; }
         public string CustomerPayment { get; set; }
+        public Nullable<long> StoreID { get; set; }
     
         public virtual Bike Bike { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

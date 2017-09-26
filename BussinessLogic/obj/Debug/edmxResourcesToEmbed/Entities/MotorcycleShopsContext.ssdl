@@ -81,8 +81,8 @@
     <Property Name="BikeID" Type="bigint" />
     <Property Name="Date" Type="datetime" />
     <Property Name="CashierID" Type="bigint" />
-    <Property Name="StoreID" Type="bigint" />
     <Property Name="CustomerPayment" Type="nvarchar" MaxLength="250" />
+    <Property Name="StoreID" Type="bigint" />
   </EntityType>
   <EntityType Name="QuotationTable">
     <Key>
@@ -111,8 +111,8 @@
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CashierID" Type="bigint" />
     <Property Name="SoldDate" Type="datetime" />
-    <Property Name="StoreID" Type="bigint" />
     <Property Name="BikeID" Type="bigint" />
+    <Property Name="StoreID" Type="bigint" />
   </EntityType>
   <EntityType Name="Store">
     <Key>
@@ -350,12 +350,22 @@
     <Parameter Name="Email" Type="nvarchar" Mode="In" />
     <Parameter Name="CurrentIdentity" Type="bigint" Mode="InOut" />
     <Parameter Name="Success" Type="bit" Mode="InOut" />
+    <Parameter Name="Error" Type="nvarchar(max)" Mode="InOut" />
+  </Function>
+  <Function Name="INSERT_MAINTENANCE_BILL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EngineNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="ChassisNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="CashierID" Type="bigint" Mode="In" />
+    <Parameter Name="CustomerPayment" Type="nvarchar" Mode="In" />
+    <Parameter Name="CurrentIdentity" Type="bigint" Mode="InOut" />
+    <Parameter Name="Success" Type="bit" Mode="InOut" />
+    <Parameter Name="Error" Type="nvarchar(max)" Mode="InOut" />
   </Function>
   <Function Name="INSERT_SALE_RECEIPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CashierID" Type="bigint" Mode="In" />
     <Parameter Name="SoldDate" Type="datetime" Mode="In" />
-    <Parameter Name="StoreID" Type="bigint" Mode="In" />
     <Parameter Name="BikeID" Type="bigint" Mode="In" />
+    <Parameter Name="StoreID" Type="bigint" Mode="In" />
     <Parameter Name="Success" Type="bit" Mode="InOut" />
     <Parameter Name="Error" Type="nvarchar(max)" Mode="InOut" />
   </Function>

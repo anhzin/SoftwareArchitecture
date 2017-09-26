@@ -88,8 +88,8 @@
           <ScalarProperty Name="BikeID" ColumnName="BikeID" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="CashierID" ColumnName="CashierID" />
-          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
           <ScalarProperty Name="CustomerPayment" ColumnName="CustomerPayment" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -121,8 +121,8 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CashierID" ColumnName="CashierID" />
           <ScalarProperty Name="SoldDate" ColumnName="SoldDate" />
-          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
           <ScalarProperty Name="BikeID" ColumnName="BikeID" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -150,6 +150,7 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="INSERT_BIKE" FunctionName="MotorcycleShopsModel.Store.INSERT_BIKE" />
     <FunctionImportMapping FunctionImportName="INSERT_CUSTOMER" FunctionName="MotorcycleShopsModel.Store.INSERT_CUSTOMER" />
+    <FunctionImportMapping FunctionImportName="INSERT_MAINTENANCE_BILL" FunctionName="MotorcycleShopsModel.Store.INSERT_MAINTENANCE_BILL" />
     <FunctionImportMapping FunctionImportName="INSERT_SALE_RECEIPT" FunctionName="MotorcycleShopsModel.Store.INSERT_SALE_RECEIPT" />
     <FunctionImportMapping FunctionImportName="NEW_SALE_TRANSACTION" FunctionName="MotorcycleShopsModel.Store.NEW_SALE_TRANSACTION" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="MotorcycleShopsModel.Store.sp_alterdiagram" />

@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="DataAccess\AccountDAL.cs" />
     <Compile Include="DataAccess\BikeDAL.cs" />
+    <Compile Include="DataAccess\CustomerDAL.cs" />
+    <Compile Include="DataAccess\EmployeeDAL.cs" />
+    <Compile Include="DataAccess\SaleReceiptDAL.cs" />
     <Compile Include="Entities\Account.cs">
       <DependentUpon>MotorcycleShopsContext.tt</DependentUpon>
     </Compile>
@@ -114,6 +117,7 @@
     <Compile Include="Entities\sysdiagram.cs">
       <DependentUpon>MotorcycleShopsContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\TransactionResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +132,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Entities\MotorcycleShopsContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MotorcycleShopsContext.edmx</DependentUpon>
@@ -138,9 +145,6 @@
       <DependentUpon>MotorcycleShopsContext.edmx</DependentUpon>
       <LastGenOutput>MotorcycleShopsContext.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

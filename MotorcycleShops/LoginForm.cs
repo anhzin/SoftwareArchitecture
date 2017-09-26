@@ -23,8 +23,7 @@ namespace MotorcycleShops
         private void ResetAccountInformation()
         {
             currentAccount = AccountInformation.GetInstance();
-            currentAccount.CurrentAccount = null;
-            currentAccount.CurrentAccount.Employee = null;            
+            currentAccount.CurrentAccount = null;         
         }
 
         private void InitAccountInformation(Account account)

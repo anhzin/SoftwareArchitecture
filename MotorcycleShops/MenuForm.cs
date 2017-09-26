@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BussinessLogic.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,6 +31,14 @@ namespace MotorcycleShops
             this.Opacity = 0;
             var maintenancebillForm = new MaintenanceBillForm();
             maintenancebillForm.ShowDialog(this);
+            this.Opacity = 1;
+        }
+
+        private void btnNewMotorcycle_Click(object sender, EventArgs e)
+        {
+            this.Opacity = 0;
+            var bikeForm = new BikeForm(null, true);
+            bikeForm.ShowDialog(this);
             this.Opacity = 1;
         }
     }

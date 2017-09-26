@@ -17,8 +17,8 @@ namespace BussinessLogic.Entities
         public long ID { get; set; }
         public Nullable<long> CashierID { get; set; }
         public Nullable<System.DateTime> SoldDate { get; set; }
-        public Nullable<long> StoreID { get; set; }
         public Nullable<long> BikeID { get; set; }
+        public Nullable<long> StoreID { get; set; }
     
         public virtual Bike Bike { get; set; }
         public virtual Employee Employee { get; set; }

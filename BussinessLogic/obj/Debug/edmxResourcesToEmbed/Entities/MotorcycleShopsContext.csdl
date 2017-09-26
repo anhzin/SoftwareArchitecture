@@ -100,8 +100,8 @@
     <Property Name="BikeID" Type="Int64" />
     <Property Name="Date" Type="DateTime" Precision="3" />
     <Property Name="CashierID" Type="Int64" />
-    <Property Name="StoreID" Type="Int64" />
     <Property Name="CustomerPayment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="StoreID" Type="Int64" />
     <NavigationProperty Name="Bike" Relationship="Self.FK_MaintenanceBill_Bike" FromRole="MaintenanceBill" ToRole="Bike" />
     <NavigationProperty Name="BillDetails" Relationship="Self.FK_ProductsAndServices_MaintenanceBill" FromRole="MaintenanceBill" ToRole="BillDetails" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_MaintenanceBill_Employee" FromRole="MaintenanceBill" ToRole="Employee" />
@@ -136,8 +136,8 @@
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CashierID" Type="Int64" />
     <Property Name="SoldDate" Type="DateTime" Precision="3" />
-    <Property Name="StoreID" Type="Int64" />
     <Property Name="BikeID" Type="Int64" />
+    <Property Name="StoreID" Type="Int64" />
     <NavigationProperty Name="Bike" Relationship="Self.FK_SaleReceipt_Bike" FromRole="SaleReceipt" ToRole="Bike" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_SaleReceipt_Employee" FromRole="SaleReceipt" ToRole="Employee" />
     <NavigationProperty Name="Store" Relationship="Self.FK_SaleReceipt_Store" FromRole="SaleReceipt" ToRole="Store" />
@@ -459,12 +459,22 @@
       <Parameter Name="Email" Mode="In" Type="String" />
       <Parameter Name="CurrentIdentity" Mode="InOut" Type="Int64" />
       <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+      <Parameter Name="Error" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="INSERT_MAINTENANCE_BILL">
+      <Parameter Name="EngineNumber" Mode="In" Type="String" />
+      <Parameter Name="ChassisNumber" Mode="In" Type="String" />
+      <Parameter Name="CashierID" Mode="In" Type="Int64" />
+      <Parameter Name="CustomerPayment" Mode="In" Type="String" />
+      <Parameter Name="CurrentIdentity" Mode="InOut" Type="Int64" />
+      <Parameter Name="Success" Mode="InOut" Type="Boolean" />
+      <Parameter Name="Error" Mode="InOut" Type="String" />
     </FunctionImport>
     <FunctionImport Name="INSERT_SALE_RECEIPT">
       <Parameter Name="CashierID" Mode="In" Type="Int64" />
       <Parameter Name="SoldDate" Mode="In" Type="DateTime" />
-      <Parameter Name="StoreID" Mode="In" Type="Int64" />
       <Parameter Name="BikeID" Mode="In" Type="Int64" />
+      <Parameter Name="StoreID" Mode="In" Type="Int64" />
       <Parameter Name="Success" Mode="InOut" Type="Boolean" />
       <Parameter Name="Error" Mode="InOut" Type="String" />
     </FunctionImport>
