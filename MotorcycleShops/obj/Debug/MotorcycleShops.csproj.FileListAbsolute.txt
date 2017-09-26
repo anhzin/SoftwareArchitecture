@@ -22,3 +22,8 @@ D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\bin\Debug\EntityFramework.xml
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\bin\Debug\EntityFramework.SqlServer.xml
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.csprojResolveAssemblyReference.cache
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.MenuForm.resources
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.csproj.GenerateResource.Cache
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.SaleReceiptForm.resources
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.MaintenanceBillForm.resources
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.LoginForm.resources

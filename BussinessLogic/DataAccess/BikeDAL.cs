@@ -12,6 +12,10 @@ namespace BussinessLogic.DataAccess
     {
         private static BikeDAL _instance = null;
         private static Object lockObj = new Object();
+        private BikeDAL()
+        {
+
+        }
         public static BikeDAL GetInstance()
         {
             lock (lockObj)
@@ -28,7 +32,7 @@ namespace BussinessLogic.DataAccess
             List<Bike> results = null;
             using (var db = new MotorcycleShopsEntities())
             {
-                results = db.Bikes.ToList<Bike>();
+                results = db.Bikes.ToList<Bike>();                
             }
             return results;
         }

@@ -51,10 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\AccountDAL.cs" />
     <Compile Include="DataAccess\BikeDAL.cs" />
     <Compile Include="Entities\Account.cs">
       <DependentUpon>MotorcycleShopsContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\AccountInformation.cs" />
     <Compile Include="Entities\Bike.cs">
       <DependentUpon>MotorcycleShopsContext.tt</DependentUpon>
     </Compile>
