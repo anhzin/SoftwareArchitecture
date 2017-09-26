@@ -53,8 +53,10 @@
   <ItemGroup>
     <Compile Include="DataAccess\AccountDAL.cs" />
     <Compile Include="DataAccess\BikeDAL.cs" />
+    <Compile Include="DataAccess\BillDetailDAL.cs" />
     <Compile Include="DataAccess\CustomerDAL.cs" />
     <Compile Include="DataAccess\EmployeeDAL.cs" />
+    <Compile Include="DataAccess\QuotationTableDAL.cs" />
     <Compile Include="DataAccess\SaleReceiptDAL.cs" />
     <Compile Include="Entities\Account.cs">
       <DependentUpon>MotorcycleShopsContext.tt</DependentUpon>

@@ -37,5 +37,15 @@ namespace BussinessLogic.DataAccess
             }
             return employee;
         }
+
+        public List<Employee> GetAllItems()
+        {
+            List<Employee> result = null;
+            using (var db = new MotorcycleShopsEntities())
+            {
+                result = db.Employees.ToList();
+            }
+            return result;
+        }
     }
 }
