@@ -22,7 +22,6 @@ D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.csprojResolveAssemblyReference.cache
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.BikeForm.resources
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.LoginForm.resources
-D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.MaintenanceBillForm.resources
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.MenuForm.resources
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.SaleReceiptForm.resources
 D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.csproj.GenerateResource.Cache
@@ -46,4 +45,5 @@ D:\Study\Semester7\Software Architecture\Individual Project\Backup\MotorcycleSho
 D:\Study\Semester7\Software Architecture\Individual Project\Backup\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.MenuForm.resources
 D:\Study\Semester7\Software Architecture\Individual Project\Backup\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.SaleReceiptForm.resources
 D:\Study\Semester7\Software Architecture\Individual Project\Backup\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.csproj.GenerateResource.Cache
-D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.ChooseEmployeesForm.resources
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.BillDetailForm.resources
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\MotorcycleShops\obj\Debug\MotorcycleShops.btnCreate.resources

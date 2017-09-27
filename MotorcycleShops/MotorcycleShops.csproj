@@ -63,11 +63,11 @@
     <Compile Include="BikeForm.Designer.cs">
       <DependentUpon>BikeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChooseEmployeesForm.cs">
+    <Compile Include="BillDetailForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChooseEmployeesForm.Designer.cs">
-      <DependentUpon>ChooseEmployeesForm.cs</DependentUpon>
+    <Compile Include="BillDetailForm.Designer.cs">
+      <DependentUpon>BillDetailForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -110,8 +110,8 @@
     <EmbeddedResource Include="BikeForm.resx">
       <DependentUpon>BikeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChooseEmployeesForm.resx">
-      <DependentUpon>ChooseEmployeesForm.cs</DependentUpon>
+    <EmbeddedResource Include="BillDetailForm.resx">
+      <DependentUpon>BillDetailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

@@ -7,34 +7,34 @@ using System.Threading.Tasks;
 
 namespace BussinessLogic.DataAccess
 {
-    public class BillDetailDAL
+    public class BillEmployeesDAL
     {
-        private static BillDetailDAL _instance = null;
-        private static Object lockObj = new Object();
-        private BillDetailDAL()
+        private static BillEmployeesDAL _instance = null;
+        private static Object _lockObj = new Object();
+
+        private BillEmployeesDAL()
         {
 
         }
-        public static BillDetailDAL GetInstance()
+        public static BillEmployeesDAL GetInstance()
         {
-            lock (lockObj)
+            lock (_lockObj)
             {
                 if (_instance == null)
                 {
-                    _instance = new BillDetailDAL();
+                    _instance = new BillEmployeesDAL();
                 }
                 return _instance;
             }
         }
 
-        public long Insert(BillDetail bd)
+        public long Insert(BillEmployee billEmp)
         {
             long id = 1;
             using (var db = new MotorcycleShopsEntities())
             {
-                db.BillDetails.Add(bd);
+                db.BillEmployees.Add(billEmp);
                 db.SaveChanges();
-                id = bd.ID;
             }
             return id;
         }

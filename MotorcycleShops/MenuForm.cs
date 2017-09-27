@@ -29,7 +29,7 @@ namespace MotorcycleShops
         private void btnNewMaintenanceBill_Click(object sender, EventArgs e)
         {
             this.Opacity = 0;
-            var maintenancebillForm = new MaintenanceBillForm();
+            var maintenancebillForm = new btnCreate();
             maintenancebillForm.ShowDialog(this);
             this.Opacity = 1;
         }
