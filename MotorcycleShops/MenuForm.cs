@@ -37,8 +37,16 @@ namespace MotorcycleShops
         private void btnNewMotorcycle_Click(object sender, EventArgs e)
         {
             this.Opacity = 0;
-            var bikeForm = new BikeForm(null, true);
+            var bikeForm = new BikeForm(null, Mode.MODE_CREATE);
             bikeForm.ShowDialog(this);
+            this.Opacity = 1;
+        }
+
+        private void btnEditMotorcycle_Click(object sender, EventArgs e)
+        {
+            this.Opacity = 0;
+            var listBikeForm = new ListBikeForm();
+            listBikeForm.ShowDialog(this);
             this.Opacity = 1;
         }
     }

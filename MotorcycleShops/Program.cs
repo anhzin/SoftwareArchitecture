@@ -9,6 +9,12 @@ using System.Windows.Forms;
 
 namespace MotorcycleShops
 {
+    public enum Mode
+    {
+        MODE_READ_ONLY,
+        MODE_EDITING,
+        MODE_CREATE
+    };
     class Program
     {
         /// <summary>

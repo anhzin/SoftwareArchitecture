@@ -32,6 +32,7 @@
             this.btnNewSaleReceipt = new System.Windows.Forms.Button();
             this.btnNewMaintenanceBill = new System.Windows.Forms.Button();
             this.btnNewMotorcycle = new System.Windows.Forms.Button();
+            this.btnEditMotorcycle = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -74,11 +75,22 @@
             this.btnNewMotorcycle.UseVisualStyleBackColor = true;
             this.btnNewMotorcycle.Click += new System.EventHandler(this.btnNewMotorcycle_Click);
             // 
+            // btnEditMotorcycle
+            // 
+            this.btnEditMotorcycle.Location = new System.Drawing.Point(380, 142);
+            this.btnEditMotorcycle.Name = "btnEditMotorcycle";
+            this.btnEditMotorcycle.Size = new System.Drawing.Size(174, 34);
+            this.btnEditMotorcycle.TabIndex = 3;
+            this.btnEditMotorcycle.Text = "Edit Motorcycle";
+            this.btnEditMotorcycle.UseVisualStyleBackColor = true;
+            this.btnEditMotorcycle.Click += new System.EventHandler(this.btnEditMotorcycle_Click);
+            // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 261);
+            this.Controls.Add(this.btnEditMotorcycle);
             this.Controls.Add(this.btnNewMotorcycle);
             this.Controls.Add(this.btnNewMaintenanceBill);
             this.Controls.Add(this.btnNewSaleReceipt);
@@ -96,5 +108,6 @@
         private System.Windows.Forms.Button btnNewSaleReceipt;
         private System.Windows.Forms.Button btnNewMaintenanceBill;
         private System.Windows.Forms.Button btnNewMotorcycle;
+        private System.Windows.Forms.Button btnEditMotorcycle;
     }
 }

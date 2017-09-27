@@ -85,7 +85,7 @@ namespace MotorcycleShops
             else
             {
                 lblID.Text = bike.ID + "";
-                var bikeForm = new BikeForm(bike, false);
+                var bikeForm = new BikeForm(bike, Mode.MODE_READ_ONLY);
                 bikeForm.ShowDialog(this);
             }
         }

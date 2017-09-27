@@ -84,5 +84,46 @@ namespace BussinessLogic.DataAccess
             }
             return false;
         }
+
+        public List<Bike> FilterBike(string engine, string chassis, string code)
+        {
+            List<Bike> list = null;
+            using (var db = new MotorcycleShopsEntities())
+            {
+                if (string.IsNullOrWhiteSpace(engine))
+                {
+                    list = db.Bikes.ToList();
+                }else
+                {
+                    list = db.Bikes.Where(i => i.EngineNumber.ToUpper().Contains(engine.ToUpper())).ToList();
+                }
+                if (!string.IsNullOrWhiteSpace(chassis))
+                {
+                    list = list.Where(i => i.ChassisNumber.ToUpper().Contains(chassis.ToUpper())).ToList();
+                }
+                if (!string.IsNullOrWhiteSpace(code))
+                {
+                    list = list.Where(i => i.ModelCode.ToUpper().Contains(code.ToUpper())).ToList();
+                }
+            }
+            return list;
+        }
+        public bool Delete(long id)
+        {
+            using (var db = new MotorcycleShopsEntities())
+            {
+                var record = db.Bikes.SingleOrDefault(i => i.ID == id);
+                if(record != null)
+                {
+                    var result = db.Bikes.Remove(record);
+                    db.SaveChanges();
+                    if(result != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

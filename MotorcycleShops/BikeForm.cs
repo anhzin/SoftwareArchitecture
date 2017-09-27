@@ -1,4 +1,5 @@
-﻿using BussinessLogic.Entities;
+﻿using BussinessLogic.DataAccess;
+using BussinessLogic.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,16 +14,16 @@ namespace MotorcycleShops
 {    
     public partial class BikeForm : Form
     {
-        private bool _isEditable = true;
+        private Mode mode;
         private Bike bike;
-        public BikeForm(Bike bike, bool editable)
+        public BikeForm(Bike bike, Mode mode)
         {
             InitializeComponent();
             if(bike == null)
             {
                 bike = new Bike();
             }
-            _isEditable = editable;
+            this.mode = mode;
             this.bike = bike;
             BindingProperty();
         }
@@ -41,27 +42,76 @@ namespace MotorcycleShops
             txtStoreID.DataBindings.Add("Text", bike, "StoreID");
             txtWarranty.DataBindings.Add("Text", bike, "WarrantyPeriod");            
 
-            if (!_isEditable)
+            switch (mode)
             {
-                DisableEditing();
+                case Mode.MODE_READ_ONLY:
+                    {
+                        TurnOnReadOnlyMode();
+                        break;
+                    }                    
+                case Mode.MODE_EDITING:
+                    {
+                        TurnOnEditingMode();
+                        break;
+                    }
+                case Mode.MODE_CREATE:
+                    {
+                        TurnOnCreateMode();
+                        break;
+                    }
+                default:
+                    break;
             }
+
         }
 
-        private void DisableEditing()
+        private void TurnOnReadOnlyMode()
         {
             btnAdd.Enabled = false;
             foreach (var item in this.Controls)
             {
-                if(item is TextBox)
+                if (item is TextBox)
                 {
                     ((TextBox)item).ReadOnly = true;
                 }
             }
         }
+        private void TurnOnEditingMode()
+        {
+            btnAdd.Enabled = false;
+            txtChassis.Enabled = false;
+            txtEngine.Enabled = false;
+        }
+        private void TurnOnCreateMode()
+        {
+            btnModify.Enabled = false;
+        }
+        
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            bool success = BikeDAL.GetInstance().InsertBike(bike);
+            if (success)
+            {
+                MessageBox.Show("Insert Success");
+            }
+            else
+            {
+                MessageBox.Show("Insert fail");
+            }
+        }
 
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            bool success = BikeDAL.GetInstance().UpdateBike(bike);
+            if (success)
+            {
+                MessageBox.Show("Update Success");
+            }
+            else
+            {
+                MessageBox.Show("Update fail");
+            }            
         }
     }
 }

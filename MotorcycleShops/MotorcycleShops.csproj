@@ -69,6 +69,12 @@
     <Compile Include="BillDetailForm.Designer.cs">
       <DependentUpon>BillDetailForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListBikeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListBikeForm.Designer.cs">
+      <DependentUpon>ListBikeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BillDetailForm.resx">
       <DependentUpon>BillDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListBikeForm.resx">
+      <DependentUpon>ListBikeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
