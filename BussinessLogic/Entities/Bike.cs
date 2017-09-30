@@ -30,7 +30,7 @@ namespace BussinessLogic.Entities
         public string Color { get; set; }
         public string PlateNumber { get; set; }
         public Nullable<long> StoreID { get; set; }
-        public Nullable<double> Price { get; set; }
+        public Nullable<long> Price { get; set; }
         public Nullable<long> CustomerID { get; set; }
         public string WarrantyPeriod { get; set; }
     

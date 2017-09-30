@@ -82,6 +82,7 @@
     <Compile Include="Entities\EmployeeRole.cs">
       <DependentUpon>MotorcycleShopsContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\MaintenanceBill.cs">
       <DependentUpon>MotorcycleShopsContext.tt</DependentUpon>
     </Compile>
@@ -137,6 +138,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataProvider\DataProvider.csproj">
+      <Project>{D3F05EE1-EE70-40C6-B8DB-5E6C6D0D52FC}</Project>
+      <Name>DataProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\MotorcycleShopsContext.Context.tt">

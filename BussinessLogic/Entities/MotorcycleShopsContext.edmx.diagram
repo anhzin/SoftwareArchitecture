@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="93bae3ae7a6f4554b744af86403aa1fa" Name="Diagram1">
+      <Diagram DiagramId="df7ef2bec3624109beafe8b2a2ca53ba" Name="Diagram1">
         <EntityTypeShape EntityType="MotorcycleShopsModel.Account" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.Bike" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.BillDetail" Width="1.5" PointX="10.5" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.BillEmployee" Width="1.5" PointX="12.75" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.Customer" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="MotorcycleShopsModel.Employee" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.EmployeeRole" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="MotorcycleShopsModel.Employee" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.MaintenanceBill" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.QuotationTable" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.Role" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
@@ -19,19 +19,19 @@
         <EntityTypeShape EntityType="MotorcycleShopsModel.Store" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MotorcycleShopsModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_Account_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="MotorcycleShopsModel.FK_Bike_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="MotorcycleShopsModel.FK_Bike_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="MotorcycleShopsModel.FK_Bikes_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="MotorcycleShopsModel.FK_Bikes_Stores" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_MaintenanceBill_Bike" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_SaleReceipt_Bike" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_BillEmployee_BillDetails" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_ProductsAndServices_MaintenanceBill" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_ProductsAndServices_QuotationTable" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_BillEmployee_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="MotorcycleShopsModel.FK_Employee_Store" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_EmployeeRole_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MotorcycleShopsModel.FK_EmployeeRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MotorcycleShopsModel.FK_Employee_Store" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_MaintenanceBill_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_SaleReceipt_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="MotorcycleShopsModel.FK_EmployeeRole_Role" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_MaintenanceBill_Store" ManuallyRouted="false" />
         <AssociationConnector Association="MotorcycleShopsModel.FK_SaleReceipt_Store" ManuallyRouted="false" />
       </Diagram>

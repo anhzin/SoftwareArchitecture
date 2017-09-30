@@ -3,7 +3,7 @@
   <EntityContainerMapping StorageEntityContainer="MotorcycleShopsModelStoreContainer" CdmEntityContainer="MotorcycleShopsEntities">
     <EntitySetMapping Name="Accounts">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.Account">
-        <MappingFragment StoreEntitySet="Account">
+        <MappingFragment StoreEntitySet="Accounts">
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
@@ -12,7 +12,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="Bikes">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.Bike">
-        <MappingFragment StoreEntitySet="Bike">
+        <MappingFragment StoreEntitySet="Bikes">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
           <ScalarProperty Name="ChassisNumber" ColumnName="ChassisNumber" />
@@ -41,7 +41,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="BillEmployees">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.BillEmployee">
-        <MappingFragment StoreEntitySet="BillEmployee">
+        <MappingFragment StoreEntitySet="BillEmployees">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="BillDetailID" ColumnName="BillDetailID" />
@@ -50,7 +50,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="Customers">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.Customer">
-        <MappingFragment StoreEntitySet="Customer">
+        <MappingFragment StoreEntitySet="Customers">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="DOB" ColumnName="DOB" />
@@ -60,9 +60,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeRoles">
+      <EntityTypeMapping TypeName="MotorcycleShopsModel.EmployeeRole">
+        <MappingFragment StoreEntitySet="EmployeeRoles">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.Employee">
-        <MappingFragment StoreEntitySet="Employee">
+        <MappingFragment StoreEntitySet="Employees">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
@@ -72,18 +81,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="EmployeeRoles">
-      <EntityTypeMapping TypeName="MotorcycleShopsModel.EmployeeRole">
-        <MappingFragment StoreEntitySet="EmployeeRole">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MaintenanceBills">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.MaintenanceBill">
-        <MappingFragment StoreEntitySet="MaintenanceBill">
+        <MappingFragment StoreEntitySet="MaintenanceBills">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="BikeID" ColumnName="BikeID" />
           <ScalarProperty Name="Date" ColumnName="Date" />
@@ -95,7 +95,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="QuotationTables">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.QuotationTable">
-        <MappingFragment StoreEntitySet="QuotationTable">
+        <MappingFragment StoreEntitySet="QuotationTables">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ProductOrService" ColumnName="ProductOrService" />
           <ScalarProperty Name="Code" ColumnName="Code" />
@@ -109,7 +109,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="Roles">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.Role">
-        <MappingFragment StoreEntitySet="Role">
+        <MappingFragment StoreEntitySet="Roles">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
         </MappingFragment>
@@ -117,7 +117,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="SaleReceipts">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.SaleReceipt">
-        <MappingFragment StoreEntitySet="SaleReceipt">
+        <MappingFragment StoreEntitySet="SaleReceipts">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CashierID" ColumnName="CashierID" />
           <ScalarProperty Name="SoldDate" ColumnName="SoldDate" />
@@ -128,7 +128,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="Stores">
       <EntityTypeMapping TypeName="MotorcycleShopsModel.Store">
-        <MappingFragment StoreEntitySet="Store">
+        <MappingFragment StoreEntitySet="Stores">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Address" ColumnName="Address" />

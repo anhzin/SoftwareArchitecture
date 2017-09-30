@@ -1,0 +1,5 @@
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\DataProvider\bin\Debug\DataProvider.dll
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\DataProvider\bin\Debug\DataProvider.pdb
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\DataProvider\obj\Debug\DataProvider.csprojResolveAssemblyReference.cache
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\DataProvider\obj\Debug\DataProvider.dll
+D:\Study\Semester7\Software Architecture\Individual Project\Code\MotorcycleShops\DataProvider\obj\Debug\DataProvider.pdb

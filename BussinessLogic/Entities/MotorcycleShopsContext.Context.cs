@@ -32,8 +32,8 @@ namespace BussinessLogic.Entities
         public virtual DbSet<BillDetail> BillDetails { get; set; }
         public virtual DbSet<BillEmployee> BillEmployees { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeRole> EmployeeRoles { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<MaintenanceBill> MaintenanceBills { get; set; }
         public virtual DbSet<QuotationTable> QuotationTables { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -41,7 +41,7 @@ namespace BussinessLogic.Entities
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
-        public virtual int INSERT_BIKE(string engineNumber, string chassisNumber, string brand, string modelCode, Nullable<int> capacity, string color, string plateNumber, Nullable<long> storeID, Nullable<double> price, Nullable<long> customerID, string warrantyPeriod, ObjectParameter success, ObjectParameter error)
+        public virtual int INSERT_BIKE(string engineNumber, string chassisNumber, string brand, string modelCode, Nullable<int> capacity, string color, string plateNumber, Nullable<long> storeID, Nullable<long> price, Nullable<long> customerID, string warrantyPeriod, ObjectParameter success, ObjectParameter error)
         {
             var engineNumberParameter = engineNumber != null ?
                 new ObjectParameter("EngineNumber", engineNumber) :
@@ -77,7 +77,7 @@ namespace BussinessLogic.Entities
     
             var priceParameter = price.HasValue ?
                 new ObjectParameter("Price", price) :
-                new ObjectParameter("Price", typeof(double));
+                new ObjectParameter("Price", typeof(long));
     
             var customerIDParameter = customerID.HasValue ?
                 new ObjectParameter("CustomerID", customerID) :
@@ -115,7 +115,7 @@ namespace BussinessLogic.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_CUSTOMER", nameParameter, dOBParameter, addressParameter, phoneNumberParameter, emailParameter, currentIdentity, success, error);
         }
     
-        public virtual int INSERT_MAINTENANCE_BILL(string engineNumber, string chassisNumber, Nullable<long> cashierID, string customerPayment, ObjectParameter currentIdentity, ObjectParameter success, ObjectParameter error)
+        public virtual int INSERT_MAINTENANCE_BILL(string engineNumber, string chassisNumber, Nullable<long> cashierID, string customerPayment, Nullable<long> storedID, ObjectParameter currentIdentity, ObjectParameter success, ObjectParameter error)
         {
             var engineNumberParameter = engineNumber != null ?
                 new ObjectParameter("EngineNumber", engineNumber) :
@@ -133,7 +133,11 @@ namespace BussinessLogic.Entities
                 new ObjectParameter("CustomerPayment", customerPayment) :
                 new ObjectParameter("CustomerPayment", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_MAINTENANCE_BILL", engineNumberParameter, chassisNumberParameter, cashierIDParameter, customerPaymentParameter, currentIdentity, success, error);
+            var storedIDParameter = storedID.HasValue ?
+                new ObjectParameter("StoredID", storedID) :
+                new ObjectParameter("StoredID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_MAINTENANCE_BILL", engineNumberParameter, chassisNumberParameter, cashierIDParameter, customerPaymentParameter, storedIDParameter, currentIdentity, success, error);
         }
     
         public virtual int INSERT_SALE_RECEIPT(Nullable<long> cashierID, Nullable<System.DateTime> soldDate, Nullable<long> bikeID, Nullable<long> storeID, ObjectParameter success, ObjectParameter error)
@@ -289,7 +293,7 @@ namespace BussinessLogic.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int UPDATE_BIKE(string engineNumber, string chassisNumber, string brand, string modelCode, Nullable<int> capacity, string color, string plateNumber, Nullable<long> storeID, Nullable<double> price, Nullable<long> customerID, string warrantyPeriod, ObjectParameter success)
+        public virtual int UPDATE_BIKE(string engineNumber, string chassisNumber, string brand, string modelCode, Nullable<int> capacity, string color, string plateNumber, Nullable<long> storeID, Nullable<long> price, Nullable<long> customerID, string warrantyPeriod, ObjectParameter success)
         {
             var engineNumberParameter = engineNumber != null ?
                 new ObjectParameter("EngineNumber", engineNumber) :
@@ -325,7 +329,7 @@ namespace BussinessLogic.Entities
     
             var priceParameter = price.HasValue ?
                 new ObjectParameter("Price", price) :
-                new ObjectParameter("Price", typeof(double));
+                new ObjectParameter("Price", typeof(long));
     
             var customerIDParameter = customerID.HasValue ?
                 new ObjectParameter("CustomerID", customerID) :

@@ -39,7 +39,7 @@ namespace MotorcycleShops
             var password = txtPassword.Text;
             var accountDAL = AccountDAL.GetInstance();
             var account = accountDAL.GetAccountByUsername(username);
-            if (password.Equals(account.Password))
+            if (account != null && password.Equals(account.Password))
             {
                 InitAccountInformation(account);
                 this.Opacity = 0;

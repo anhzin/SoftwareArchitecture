@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MotorcycleShopsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="Account">
+  <EntityType Name="Accounts">
     <Key>
       <PropertyRef Name="Username" />
     </Key>
@@ -8,7 +8,7 @@
     <Property Name="Password" Type="nvarchar" MaxLength="200" />
     <Property Name="EmployeeID" Type="bigint" />
   </EntityType>
-  <EntityType Name="Bike">
+  <EntityType Name="Bikes">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -21,7 +21,7 @@
     <Property Name="Color" Type="nvarchar" MaxLength="50" />
     <Property Name="PlateNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="StoreID" Type="bigint" />
-    <Property Name="Price" Type="float" />
+    <Property Name="Price" Type="bigint" />
     <Property Name="CustomerID" Type="bigint" />
     <Property Name="WarrantyPeriod" Type="ntext" />
   </EntityType>
@@ -33,9 +33,9 @@
     <Property Name="QuotationID" Type="bigint" />
     <Property Name="BillID" Type="bigint" />
     <Property Name="Quantity" Type="int" />
-    <Property Name="Note" Type="ntext" />
+    <Property Name="Note" Type="nvarchar(max)" />
   </EntityType>
-  <EntityType Name="BillEmployee">
+  <EntityType Name="BillEmployees">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -43,18 +43,26 @@
     <Property Name="EmployeeID" Type="bigint" />
     <Property Name="BillDetailID" Type="bigint" />
   </EntityType>
-  <EntityType Name="Customer">
+  <EntityType Name="Customers">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
     <Property Name="DOB" Type="datetime" />
-    <Property Name="Address" Type="ntext" />
+    <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="Email" Type="nvarchar" MaxLength="200" />
   </EntityType>
-  <EntityType Name="Employee">
+  <EntityType Name="EmployeeRoles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="bigint" />
+    <Property Name="RoleID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Employees">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -65,15 +73,7 @@
     <Property Name="JoinedDate" Type="datetime" />
     <Property Name="Email" Type="nvarchar" MaxLength="200" />
   </EntityType>
-  <EntityType Name="EmployeeRole">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="EmployeeID" Type="bigint" />
-    <Property Name="RoleID" Type="bigint" />
-  </EntityType>
-  <EntityType Name="MaintenanceBill">
+  <EntityType Name="MaintenanceBills">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -84,7 +84,7 @@
     <Property Name="CustomerPayment" Type="nvarchar" MaxLength="250" />
     <Property Name="StoreID" Type="bigint" />
   </EntityType>
-  <EntityType Name="QuotationTable">
+  <EntityType Name="QuotationTables">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -92,19 +92,19 @@
     <Property Name="ProductOrService" Type="nvarchar" MaxLength="250" />
     <Property Name="Code" Type="nvarchar" MaxLength="50" />
     <Property Name="Price" Type="float" />
-    <Property Name="WarrantyPeriod" Type="ntext" />
+    <Property Name="WarrantyPeriod" Type="nvarchar(max)" />
     <Property Name="Brand" Type="nvarchar" MaxLength="250" />
     <Property Name="IsProduct" Type="bit" />
-    <Property Name="Description" Type="ntext" />
+    <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
-  <EntityType Name="Role">
+  <EntityType Name="Roles">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleName" Type="nvarchar" MaxLength="250" />
   </EntityType>
-  <EntityType Name="SaleReceipt">
+  <EntityType Name="SaleReceipts">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -114,13 +114,13 @@
     <Property Name="BikeID" Type="bigint" />
     <Property Name="StoreID" Type="bigint" />
   </EntityType>
-  <EntityType Name="Store">
+  <EntityType Name="Stores">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
-    <Property Name="Address" Type="ntext" />
+    <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="Email" Type="nvarchar" MaxLength="200" />
   </EntityType>
@@ -135,142 +135,142 @@
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <Association Name="FK_Account_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <End Role="Account" Type="Self.Account" Multiplicity="*" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employee">
+      <Principal Role="Employees">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Account">
+      <Dependent Role="Accounts">
         <PropertyRef Name="EmployeeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Bike_Customer">
-    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-    <End Role="Bike" Type="Self.Bike" Multiplicity="*" />
+  <Association Name="FK_Bikes_Customers">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Bikes" Type="Self.Bikes" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Customer">
+      <Principal Role="Customers">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Bike">
+      <Dependent Role="Bikes">
         <PropertyRef Name="CustomerID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Bike_Store">
-    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-    <End Role="Bike" Type="Self.Bike" Multiplicity="*" />
+  <Association Name="FK_Bikes_Stores">
+    <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+    <End Role="Bikes" Type="Self.Bikes" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Store">
+      <Principal Role="Stores">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Bike">
+      <Dependent Role="Bikes">
         <PropertyRef Name="StoreID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_BillEmployee_BillDetails">
     <End Role="BillDetails" Type="Self.BillDetails" Multiplicity="0..1" />
-    <End Role="BillEmployee" Type="Self.BillEmployee" Multiplicity="*" />
+    <End Role="BillEmployees" Type="Self.BillEmployees" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BillDetails">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="BillEmployee">
+      <Dependent Role="BillEmployees">
         <PropertyRef Name="BillDetailID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_BillEmployee_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <End Role="BillEmployee" Type="Self.BillEmployee" Multiplicity="*" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="BillEmployees" Type="Self.BillEmployees" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employee">
+      <Principal Role="Employees">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="BillEmployee">
+      <Dependent Role="BillEmployees">
         <PropertyRef Name="EmployeeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Employee_Store">
-    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Store">
+      <Principal Role="Stores">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Employee">
+      <Dependent Role="Employees">
         <PropertyRef Name="StoreID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_EmployeeRole_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="EmployeeRoles" Type="Self.EmployeeRoles" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employee">
+      <Principal Role="Employees">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="EmployeeRole">
+      <Dependent Role="EmployeeRoles">
         <PropertyRef Name="EmployeeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_EmployeeRole_Role">
-    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
-    <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="EmployeeRoles" Type="Self.EmployeeRoles" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Role">
+      <Principal Role="Roles">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="EmployeeRole">
+      <Dependent Role="EmployeeRoles">
         <PropertyRef Name="RoleID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_MaintenanceBill_Bike">
-    <End Role="Bike" Type="Self.Bike" Multiplicity="0..1" />
-    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="*" />
+    <End Role="Bikes" Type="Self.Bikes" Multiplicity="0..1" />
+    <End Role="MaintenanceBills" Type="Self.MaintenanceBills" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Bike">
+      <Principal Role="Bikes">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="MaintenanceBill">
+      <Dependent Role="MaintenanceBills">
         <PropertyRef Name="BikeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_MaintenanceBill_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="*" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="MaintenanceBills" Type="Self.MaintenanceBills" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employee">
+      <Principal Role="Employees">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="MaintenanceBill">
+      <Dependent Role="MaintenanceBills">
         <PropertyRef Name="CashierID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_MaintenanceBill_Store">
-    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="*" />
+    <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+    <End Role="MaintenanceBills" Type="Self.MaintenanceBills" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Store">
+      <Principal Role="Stores">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="MaintenanceBill">
+      <Dependent Role="MaintenanceBills">
         <PropertyRef Name="StoreID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ProductsAndServices_MaintenanceBill">
-    <End Role="MaintenanceBill" Type="Self.MaintenanceBill" Multiplicity="0..1" />
+    <End Role="MaintenanceBills" Type="Self.MaintenanceBills" Multiplicity="0..1" />
     <End Role="BillDetails" Type="Self.BillDetails" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="MaintenanceBill">
+      <Principal Role="MaintenanceBills">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="BillDetails">
@@ -279,10 +279,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ProductsAndServices_QuotationTable">
-    <End Role="QuotationTable" Type="Self.QuotationTable" Multiplicity="0..1" />
+    <End Role="QuotationTables" Type="Self.QuotationTables" Multiplicity="0..1" />
     <End Role="BillDetails" Type="Self.BillDetails" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="QuotationTable">
+      <Principal Role="QuotationTables">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="BillDetails">
@@ -291,37 +291,37 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SaleReceipt_Bike">
-    <End Role="Bike" Type="Self.Bike" Multiplicity="0..1" />
-    <End Role="SaleReceipt" Type="Self.SaleReceipt" Multiplicity="*" />
+    <End Role="Bikes" Type="Self.Bikes" Multiplicity="0..1" />
+    <End Role="SaleReceipts" Type="Self.SaleReceipts" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Bike">
+      <Principal Role="Bikes">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="SaleReceipt">
+      <Dependent Role="SaleReceipts">
         <PropertyRef Name="BikeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SaleReceipt_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <End Role="SaleReceipt" Type="Self.SaleReceipt" Multiplicity="*" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="SaleReceipts" Type="Self.SaleReceipts" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employee">
+      <Principal Role="Employees">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="SaleReceipt">
+      <Dependent Role="SaleReceipts">
         <PropertyRef Name="CashierID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SaleReceipt_Store">
-    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-    <End Role="SaleReceipt" Type="Self.SaleReceipt" Multiplicity="*" />
+    <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+    <End Role="SaleReceipts" Type="Self.SaleReceipts" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Store">
+      <Principal Role="Stores">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="SaleReceipt">
+      <Dependent Role="SaleReceipts">
         <PropertyRef Name="StoreID" />
       </Dependent>
     </ReferentialConstraint>
@@ -336,7 +336,7 @@
     <Parameter Name="Color" Type="nvarchar" Mode="In" />
     <Parameter Name="PlateNumber" Type="nvarchar" Mode="In" />
     <Parameter Name="StoreID" Type="bigint" Mode="In" />
-    <Parameter Name="Price" Type="float" Mode="In" />
+    <Parameter Name="Price" Type="bigint" Mode="In" />
     <Parameter Name="CustomerID" Type="bigint" Mode="In" />
     <Parameter Name="WarrantyPeriod" Type="ntext" Mode="In" />
     <Parameter Name="Success" Type="bit" Mode="InOut" />
@@ -357,6 +357,7 @@
     <Parameter Name="ChassisNumber" Type="nvarchar" Mode="In" />
     <Parameter Name="CashierID" Type="bigint" Mode="In" />
     <Parameter Name="CustomerPayment" Type="nvarchar" Mode="In" />
+    <Parameter Name="StoredID" Type="bigint" Mode="In" />
     <Parameter Name="CurrentIdentity" Type="bigint" Mode="InOut" />
     <Parameter Name="Success" Type="bit" Mode="InOut" />
     <Parameter Name="Error" Type="nvarchar(max)" Mode="InOut" />
@@ -418,7 +419,7 @@
     <Parameter Name="Color" Type="nvarchar" Mode="In" />
     <Parameter Name="PlateNumber" Type="nvarchar" Mode="In" />
     <Parameter Name="StoreID" Type="bigint" Mode="In" />
-    <Parameter Name="Price" Type="float" Mode="In" />
+    <Parameter Name="Price" Type="bigint" Mode="In" />
     <Parameter Name="CustomerID" Type="bigint" Mode="In" />
     <Parameter Name="WarrantyPeriod" Type="ntext" Mode="In" />
     <Parameter Name="Success" Type="bit" Mode="InOut" />
@@ -432,82 +433,82 @@
     <Parameter Name="Success" Type="bit" Mode="InOut" />
   </Function>
   <EntityContainer Name="MotorcycleShopsModelStoreContainer">
-    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Bike" EntityType="Self.Bike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bikes" EntityType="Self.Bikes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BillDetails" EntityType="Self.BillDetails" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="BillEmployee" EntityType="Self.BillEmployee" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EmployeeRole" EntityType="Self.EmployeeRole" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MaintenanceBill" EntityType="Self.MaintenanceBill" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="QuotationTable" EntityType="Self.QuotationTable" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SaleReceipt" EntityType="Self.SaleReceipt" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BillEmployees" EntityType="Self.BillEmployees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeRoles" EntityType="Self.EmployeeRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MaintenanceBills" EntityType="Self.MaintenanceBills" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuotationTables" EntityType="Self.QuotationTables" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleReceipts" EntityType="Self.SaleReceipts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Account_Employee" Association="Self.FK_Account_Employee">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="Account" EntitySet="Account" />
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Accounts" EntitySet="Accounts" />
     </AssociationSet>
-    <AssociationSet Name="FK_Bike_Customer" Association="Self.FK_Bike_Customer">
-      <End Role="Customer" EntitySet="Customer" />
-      <End Role="Bike" EntitySet="Bike" />
+    <AssociationSet Name="FK_Bikes_Customers" Association="Self.FK_Bikes_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Bikes" EntitySet="Bikes" />
     </AssociationSet>
-    <AssociationSet Name="FK_Bike_Store" Association="Self.FK_Bike_Store">
-      <End Role="Store" EntitySet="Store" />
-      <End Role="Bike" EntitySet="Bike" />
+    <AssociationSet Name="FK_Bikes_Stores" Association="Self.FK_Bikes_Stores">
+      <End Role="Stores" EntitySet="Stores" />
+      <End Role="Bikes" EntitySet="Bikes" />
     </AssociationSet>
     <AssociationSet Name="FK_BillEmployee_BillDetails" Association="Self.FK_BillEmployee_BillDetails">
       <End Role="BillDetails" EntitySet="BillDetails" />
-      <End Role="BillEmployee" EntitySet="BillEmployee" />
+      <End Role="BillEmployees" EntitySet="BillEmployees" />
     </AssociationSet>
     <AssociationSet Name="FK_BillEmployee_Employee" Association="Self.FK_BillEmployee_Employee">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="BillEmployee" EntitySet="BillEmployee" />
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="BillEmployees" EntitySet="BillEmployees" />
     </AssociationSet>
     <AssociationSet Name="FK_Employee_Store" Association="Self.FK_Employee_Store">
-      <End Role="Store" EntitySet="Store" />
-      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Stores" EntitySet="Stores" />
+      <End Role="Employees" EntitySet="Employees" />
     </AssociationSet>
     <AssociationSet Name="FK_EmployeeRole_Employee" Association="Self.FK_EmployeeRole_Employee">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="EmployeeRole" EntitySet="EmployeeRole" />
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
     </AssociationSet>
     <AssociationSet Name="FK_EmployeeRole_Role" Association="Self.FK_EmployeeRole_Role">
-      <End Role="Role" EntitySet="Role" />
-      <End Role="EmployeeRole" EntitySet="EmployeeRole" />
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
     </AssociationSet>
     <AssociationSet Name="FK_MaintenanceBill_Bike" Association="Self.FK_MaintenanceBill_Bike">
-      <End Role="Bike" EntitySet="Bike" />
-      <End Role="MaintenanceBill" EntitySet="MaintenanceBill" />
+      <End Role="Bikes" EntitySet="Bikes" />
+      <End Role="MaintenanceBills" EntitySet="MaintenanceBills" />
     </AssociationSet>
     <AssociationSet Name="FK_MaintenanceBill_Employee" Association="Self.FK_MaintenanceBill_Employee">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="MaintenanceBill" EntitySet="MaintenanceBill" />
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="MaintenanceBills" EntitySet="MaintenanceBills" />
     </AssociationSet>
     <AssociationSet Name="FK_MaintenanceBill_Store" Association="Self.FK_MaintenanceBill_Store">
-      <End Role="Store" EntitySet="Store" />
-      <End Role="MaintenanceBill" EntitySet="MaintenanceBill" />
+      <End Role="Stores" EntitySet="Stores" />
+      <End Role="MaintenanceBills" EntitySet="MaintenanceBills" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductsAndServices_MaintenanceBill" Association="Self.FK_ProductsAndServices_MaintenanceBill">
-      <End Role="MaintenanceBill" EntitySet="MaintenanceBill" />
+      <End Role="MaintenanceBills" EntitySet="MaintenanceBills" />
       <End Role="BillDetails" EntitySet="BillDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductsAndServices_QuotationTable" Association="Self.FK_ProductsAndServices_QuotationTable">
-      <End Role="QuotationTable" EntitySet="QuotationTable" />
+      <End Role="QuotationTables" EntitySet="QuotationTables" />
       <End Role="BillDetails" EntitySet="BillDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_SaleReceipt_Bike" Association="Self.FK_SaleReceipt_Bike">
-      <End Role="Bike" EntitySet="Bike" />
-      <End Role="SaleReceipt" EntitySet="SaleReceipt" />
+      <End Role="Bikes" EntitySet="Bikes" />
+      <End Role="SaleReceipts" EntitySet="SaleReceipts" />
     </AssociationSet>
     <AssociationSet Name="FK_SaleReceipt_Employee" Association="Self.FK_SaleReceipt_Employee">
-      <End Role="Employee" EntitySet="Employee" />
-      <End Role="SaleReceipt" EntitySet="SaleReceipt" />
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="SaleReceipts" EntitySet="SaleReceipts" />
     </AssociationSet>
     <AssociationSet Name="FK_SaleReceipt_Store" Association="Self.FK_SaleReceipt_Store">
-      <End Role="Store" EntitySet="Store" />
-      <End Role="SaleReceipt" EntitySet="SaleReceipt" />
+      <End Role="Stores" EntitySet="Stores" />
+      <End Role="SaleReceipts" EntitySet="SaleReceipts" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

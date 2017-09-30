@@ -111,6 +111,10 @@
       <Project>{c63b5cf1-d7f3-4236-898a-9f5492a0198d}</Project>
       <Name>BussinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataProvider\DataProvider.csproj">
+      <Project>{d3f05ee1-ee70-40c6-b8db-5e6c6d0d52fc}</Project>
+      <Name>DataProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BikeForm.resx">
