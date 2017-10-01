@@ -33,9 +33,18 @@ namespace BussinessLogic.DataAccess
         public List<Bike> GetAllBikes()
         {
             var sql = "SELECT * FROM Bikes";
-            var ds = DataProvider.ExecuteQueryWithDataSet(sql, CommandType.Text);
-            var result = ds.Tables[0].TableToList<Bike>();
-            return result;
+            try
+            {
+                using (var ds = DataProvider.ExecuteQueryWithDataSet(sql, CommandType.Text))
+                {
+                    var result = ds.Tables[0].TableToList<Bike>();
+                    return result;
+                }
+            } catch (Exception e)
+            {
+                return null;
+            }
+                           
         }
 
         public bool InsertBike(Bike bike)
@@ -55,87 +64,185 @@ namespace BussinessLogic.DataAccess
             var warranty = DataProvider.Param("WarrantyPeriod", bike.WarrantyPeriod);
             var success = DataProvider.OutputParam("Success", SqlDbType.Bit);
             var error = DataProvider.OutputParam("Error", SqlDbType.NVarChar, -1);
-            result = DataProvider.ExecuteNonQuery(sql, CommandType.StoredProcedure, engine, chassis, brand, code, capacity, color, plate, storeID, price, customerID, warranty, success, error);
+            try
+            {
+                result = DataProvider.ExecuteNonQuery(sql, CommandType.StoredProcedure, engine, chassis, brand, code, capacity, color, plate, storeID, price, customerID, warranty, success, error);
+            }
+            catch (Exception e)
+            {
+
+            }            
             return result;
         }
 
         public Bike SearchBike(string engine, string chassis)
         {
             Bike bike = null;
-            using (var db = new MotorcycleShopsEntities())
+            string sql = "SELECT * FROM Bikes WHERE EngineNumber = @engine AND ChassisNumber = @chassis";
+            var engineParam = DataProvider.Param("engine", engine);
+            var chassisParam = DataProvider.Param("chassis", chassis);
+            try
             {
-                bike = db.Bikes.FirstOrDefault(b => b.ChassisNumber.Equals(chassis) && b.EngineNumber.Equals(engine));
+                using (var ds = DataProvider.ExecuteQueryWithDataSet(sql, CommandType.Text, engineParam, chassisParam))
+                {
+                    var list = ds.Tables[0].TableToList<Bike>();
+                    if(list != null && list.Count > 0)
+                    {
+                        return list[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            } catch (Exception e)
+            {
+                return null;
             }
             return bike;
         }
 
         public bool UpdateBike(Bike bike)
         {
-            using (var db = new MotorcycleShopsEntities())
+            string sql = "UPDATE Bikes "
+                + "SET EngineNumber = @engine, ChassisNumber = @chassis, Brand = @brand, ModelCode = @code, Capacity = @capacity, Color = @color, PlateNumber = @plate, StoreID = @storeID, Price = @price, CustomerID = @customerID, WarrantyPeriod = @warranty "
+                + "WHERE ID = @id SELECT @@ROWCOUNT";
+            var id = DataProvider.Param("id", bike.ID);
+            var engine = DataProvider.Param("engine", bike.EngineNumber);
+            var chassis = DataProvider.Param("chassis", bike.ChassisNumber);
+            var brand = DataProvider.Param("brand", bike.Brand);
+            var code = DataProvider.Param("code", bike.ModelCode);
+            var capacity = DataProvider.Param("capacity", bike.Capacity);
+            var color = DataProvider.Param("color", bike.Color);
+            var plate = DataProvider.Param("plate", bike.PlateNumber);
+            var storeId = DataProvider.Param("storeID", bike.StoreID);
+            var price = DataProvider.Param("price", bike.Price);
+            var customerId = DataProvider.Param("customerID", bike.CustomerID);
+            var warranty = DataProvider.Param("warranty", bike.WarrantyPeriod);
+            try
             {
-                var result = db.Bikes.SingleOrDefault(b => b.ID == bike.ID);
-                if(result != null)
-                {
-                    result.Brand = bike.Brand;
-                    result.Capacity = bike.Capacity;
-                    result.ChassisNumber = bike.ChassisNumber;
-                    result.Color = bike.Color;
-                    result.CustomerID = bike.CustomerID;
-                    result.EngineNumber = bike.EngineNumber;
-                    result.ModelCode = bike.ModelCode;
-                    result.PlateNumber = bike.PlateNumber;
-                    result.Price = bike.Price;
-                    result.StoreID = bike.StoreID;
-                    result.WarrantyPeriod = bike.WarrantyPeriod;
-                    db.SaveChanges();
-                    return true;
-                }
+                var rowCount = (int)DataProvider.ExecuteScalarQuery(sql, CommandType.Text, id, engine, chassis, brand, code, capacity, color, plate, storeId, price, customerId, warranty);
+                return rowCount > 0 ? true : false;
+            } catch(Exception e)
+            {
+                return false;
             }
-            return false;
         }
 
         public bool Delete(long id)
         {
-            using (var db = new MotorcycleShopsEntities())
+            var sql = "DELETE FROM Bikes WHERE ID = @id SELECT @@ROWCOUNT";
+            var idParam = DataProvider.Param("id", id);
+            try
             {
-                var record = db.Bikes.SingleOrDefault(i => i.ID == id);
-                if (record != null)
-                {
-                    var result = db.Bikes.Remove(record);
-                    db.SaveChanges();
-                    if (result != null)
-                    {
-                        return true;
-                    }
-                }
+                var rowCount = (int)DataProvider.ExecuteScalarQuery(sql, CommandType.Text, idParam);
+                return rowCount > 0 ? true : false;
+            } catch(Exception e)
+            {
+                return false;
             }
-            return false;
         }
     
 
         public List<Bike> FilterBike(string engine, string chassis, string code)
         {
             List<Bike> list = null;
-            using (var db = new MotorcycleShopsEntities())
+            string sql = "SELECT * FROM Bikes";
+            try
             {
-                if (string.IsNullOrWhiteSpace(engine))
+                using (var ds = DataProvider.ExecuteQueryWithDataSet(sql, CommandType.Text))
                 {
-                    list = db.Bikes.ToList();
-                }else
-                {
-                    list = db.Bikes.Where(i => i.EngineNumber.ToUpper().Contains(engine.ToUpper())).ToList();
+                    list = ds.Tables[0].TableToList<Bike>();
+                    if(list != null && list.Count > 0)
+                    {
+                        if (!string.IsNullOrWhiteSpace(engine))
+                        {
+                            list = list.Where(i => i.EngineNumber.ToUpper().Contains(engine.ToUpper())).ToList<Bike>();
+                        }
+                        if (!string.IsNullOrWhiteSpace(chassis))
+                        {
+                            list = list.Where(i => i.ChassisNumber.ToUpper().Contains(chassis.ToUpper())).ToList<Bike>();
+                        }
+                        if (!string.IsNullOrWhiteSpace(code))
+                        {
+                            list = list.Where(i => i.ModelCode.ToUpper().Contains(code.ToUpper())).ToList<Bike>();
+                        }
+                    }
                 }
-                if (!string.IsNullOrWhiteSpace(chassis))
-                {
-                    list = list.Where(i => i.ChassisNumber.ToUpper().Contains(chassis.ToUpper())).ToList();
-                }
-                if (!string.IsNullOrWhiteSpace(code))
-                {
-                    list = list.Where(i => i.ModelCode.ToUpper().Contains(code.ToUpper())).ToList();
-                }
+            } catch (Exception e)
+            {
+                return null;
             }
             return list;
         }
+
+        //public List<Bike> FilterBike(string engine, string chassis, string code)
+        //{
+        //    List<Bike> list = null;
+        //    using (var db = new MotorcycleShopsEntities())
+        //    {
+        //        if (string.IsNullOrWhiteSpace(engine))
+        //        {
+        //            list = db.Bikes.ToList();
+        //        }
+        //        else
+        //        {
+        //            list = db.Bikes.Where(i => i.EngineNumber.ToUpper().Contains(engine.ToUpper())).ToList();
+        //        }
+        //        if (!string.IsNullOrWhiteSpace(chassis))
+        //        {
+        //            list = list.Where(i => i.ChassisNumber.ToUpper().Contains(chassis.ToUpper())).ToList();
+        //        }
+        //        if (!string.IsNullOrWhiteSpace(code))
+        //        {
+        //            list = list.Where(i => i.ModelCode.ToUpper().Contains(code.ToUpper())).ToList();
+        //        }
+        //    }
+        //    return list;
+        //}
+
+        //public bool UpdateBike(Bike bike)
+        //{
+        //    using (var db = new MotorcycleShopsEntities())
+        //    {
+        //        var result = db.Bikes.SingleOrDefault(b => b.ID == bike.ID);
+        //        if (result != null)
+        //        {
+        //            result.Brand = bike.Brand;
+        //            result.Capacity = bike.Capacity;
+        //            result.ChassisNumber = bike.ChassisNumber;
+        //            result.Color = bike.Color;
+        //            result.CustomerID = bike.CustomerID;
+        //            result.EngineNumber = bike.EngineNumber;
+        //            result.ModelCode = bike.ModelCode;
+        //            result.PlateNumber = bike.PlateNumber;
+        //            result.Price = bike.Price;
+        //            result.StoreID = bike.StoreID;
+        //            result.WarrantyPeriod = bike.WarrantyPeriod;
+        //            db.SaveChanges();
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
+
+        //public bool Delete(long id)
+        //{
+        //    using (var db = new MotorcycleShopsEntities())
+        //    {
+        //        var record = db.Bikes.SingleOrDefault(i => i.ID == id);
+        //        if (record != null)
+        //        {
+        //            var result = db.Bikes.Remove(record);
+        //            db.SaveChanges();
+        //            if (result != null)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}
 
         //public bool InsertBike(Bike bike)
         //{
@@ -158,6 +265,15 @@ namespace BussinessLogic.DataAccess
         //        results = db.Bikes.ToList<Bike>();
         //    }
         //    return results;
+        //}
+        //public Bike SearchBike(string engine, string chassis)
+        //{
+        //    Bike bike = null;
+        //    using (var db = new MotorcycleShopsEntities())
+        //    {
+        //        bike = db.Bikes.FirstOrDefault(b => b.ChassisNumber.Equals(chassis) && b.EngineNumber.Equals(engine));
+        //    }
+        //    return bike;
         //}
     }
 }

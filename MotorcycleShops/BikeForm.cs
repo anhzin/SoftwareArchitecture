@@ -29,17 +29,18 @@ namespace MotorcycleShops
         }
         private void BindingProperty()
         {
+            txtCapacity.Text = bike.Capacity == null ? "" : bike.Capacity + "";
+            txtCustomerID.Text = bike.CustomerID == null ? "" : bike.CustomerID + "";
+            txtPrice.Text = bike.Price == null ? "" : bike.Price + "";
+            txtStoreID.Text = bike.StoreID == null ? "" : bike.StoreID + "";
+
             lblID.DataBindings.Add("Text", bike, "ID");
             txtEngine.DataBindings.Add("Text", bike, "EngineNumber");
             txtChassis.DataBindings.Add("Text", bike, "ChassisNumber");
-            txtBrand.DataBindings.Add("Text", bike, "Brand");
-            txtCapacity.DataBindings.Add("Text", bike, "Capacity");
+            txtBrand.DataBindings.Add("Text", bike, "Brand");            
             txtCode.DataBindings.Add("Text", bike, "ModelCode");
-            txtColor.DataBindings.Add("Text", bike, "Color");
-            txtCustomerID.DataBindings.Add("Text", bike, "CustomerID");
-            txtPlate.DataBindings.Add("Text", bike, "PlateNumber");
-            txtPrice.DataBindings.Add("Text", bike, "Price");
-            txtStoreID.DataBindings.Add("Text", bike, "StoreID");
+            txtColor.DataBindings.Add("Text", bike, "Color");            
+            txtPlate.DataBindings.Add("Text", bike, "PlateNumber");            
             txtWarranty.DataBindings.Add("Text", bike, "WarrantyPeriod");            
 
             switch (mode)
@@ -87,9 +88,31 @@ namespace MotorcycleShops
             btnModify.Enabled = false;
         }
         
+        private void parseData()
+        {
+            int tmp;
+            if(int.TryParse(txtCapacity.Text, out tmp))
+            {
+                bike.Capacity = tmp;
+            }
+            long tmpLong;
+            if(long.TryParse(txtPrice.Text, out tmpLong))
+            {
+                bike.Price = tmpLong;
+            }
+            if(long.TryParse(txtCustomerID.Text, out tmpLong))
+            {
+                bike.CustomerID = tmpLong;
+            }
+            if(long.TryParse(txtStoreID.Text, out tmpLong))
+            {
+                bike.StoreID = tmpLong;
+            }
+        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            parseData();
             bool success = BikeDAL.GetInstance().InsertBike(bike);
             if (success)
             {
@@ -103,6 +126,7 @@ namespace MotorcycleShops
 
         private void btnModify_Click(object sender, EventArgs e)
         {
+            parseData();
             bool success = BikeDAL.GetInstance().UpdateBike(bike);
             if (success)
             {

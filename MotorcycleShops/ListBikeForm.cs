@@ -52,6 +52,7 @@ namespace MotorcycleShops
             this.Opacity = 0;
             var bikeForm = new BikeForm(bike, Mode.MODE_EDITING);
             bikeForm.ShowDialog(this);
+            btnSearch_Click(null, null);
             this.Opacity = 1;
         }
 
@@ -63,7 +64,8 @@ namespace MotorcycleShops
             var success = BikeDAL.GetInstance().Delete(id);
             if (success)
             {
-                MessageBox.Show("Delete success");               
+                MessageBox.Show("Delete success");
+                btnSearch_Click(null, null);
             }
             else
             {

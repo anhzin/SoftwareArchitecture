@@ -29,20 +29,12 @@ namespace BussinessLogic.Entities
             T item = new T();
             foreach (var property in properties)
             {
-                if(!property.GetGetMethod().IsVirtual)
+                if (!property.GetGetMethod().IsVirtual)
                 {
-                    if (property.PropertyType == typeof(System.DayOfWeek))
-                    {
-                        DayOfWeek day = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row[property.Name].ToString());
-                        property.SetValue(item, day, null);
-                    }
+                    if (row[property.Name] == DBNull.Value)
+                        property.SetValue(item, null, null);
                     else
-                    {
-                        if (row[property.Name] == DBNull.Value)
-                            property.SetValue(item, null, null);
-                        else
-                            property.SetValue(item, row[property.Name], null);
-                    }
+                        property.SetValue(item, row[property.Name], null);
                 }
             }
             return item;
