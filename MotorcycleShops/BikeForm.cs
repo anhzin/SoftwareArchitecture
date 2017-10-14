@@ -69,6 +69,7 @@ namespace MotorcycleShops
         private void TurnOnReadOnlyMode()
         {
             btnAdd.Enabled = false;
+            btnModify.Enabled = false;
             foreach (var item in this.Controls)
             {
                 if (item is TextBox)
